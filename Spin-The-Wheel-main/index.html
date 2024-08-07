@@ -1,35 +1,40 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
     <style>
-        body{
+        body {
             background-image: url('https://c.wallhere.com/photos/6e/33/stadium_Real_Madrid_Santiago_Bernabeu_Stadium_soccer-133298.jpg!d');
             height: 1300px;
         }
 
-        .header{
+        .header {
             padding: 40px;
-            width: 300px; /* Đặt chiều rộng của phần tử */
+            width: 300px;
+            /* Đặt chiều rộng của phần tử */
             height: 100px;
             color: #fff;
-            margin-top:100px;
+            margin-top: 100px;
             background-color: rgba(20, 20, 20, 0.9);
             margin-left: 1000px;
             border: 1px solid #000;
             border-radius: 15px;
         }
-        .header h1,p{
+
+        .header h1,
+        p {
             text-align: center;
         }
 
-        .wheel{
+        .wheel {
             display: flex;
             justify-content: center;
             position: relative;
             margin-top: -200px;
         }
-        .center-circle{
+
+        .center-circle {
             width: 100px;
             height: 100px;
             border-radius: 60px;
@@ -39,20 +44,22 @@
             background-image: url('https://scontent.xx.fbcdn.net/v/t1.15752-9/454097544_493966570215388_5099143046932739198_n.png?_nc_cat=106&ccb=1-7&_nc_sid=0024fc&_nc_ohc=2RnwJhOZ7xsQ7kNvgG37ClF&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_Q7cD1QGxt6pDky6iZ0LS4GHhZT4-YOuKuOj69-7FHQESIwrs0w&oe=66DA5BBA');
             transform: translateY(-50%);
             border-radius: 50%;
-            background-size: 100% 100%; 
+            background-size: 100% 100%;
         }
-        .triangle{
-            width: 0; 
-            height: 0; 
+
+        .triangle {
+            width: 0;
+            height: 0;
             border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent; 
-            border-right: 30px solid white; 
+            border-bottom: 10px solid transparent;
+            border-right: 30px solid white;
             position: absolute;
             top: 50%;
             right: -220%;
             transform: translateY(-50%);
         }
-        textarea{
+
+        textarea {
             background-color: rgba(20, 20, 20, 0.9);
             caret-color: #fff;
             resize: none;
@@ -60,22 +67,56 @@
             border-radius: 15px;
             z-index: 1000;
         }
-        .inputArea{
+
+        .inputArea {
             display: flex;
             justify-content: center;
             margin-left: -1000px;
-            margin-top: -400px;
-            
+            margin-top: -700px;
+
         }
-        #canvas{
+
+        #canvas {
             border-radius: 10px;
             border: #fff;
         }
+        table {
+            width: 350px;
+            text-align: center;
+            max-width: 400px;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            margin-left: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th {
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        tr{
+            text-align: center;
+        }
+        td {
+            padding: 12px;
+            text-align:center;
+            border-bottom: 1px solid #ddd;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+     
     </style>
 
 </head>
 
-<body >
+<body>
     <div class="header">
         <h1>WINNER</h1>
         <p id="winner">NONE</p>
@@ -85,10 +126,25 @@
         <div class="center-circle" onclick="spin()">
             <div class="triangle"></div>
         </div>
-        
     </div>
+    <table>
+        
+        <tr>
+            <th>Bảng A</th>
+        </tr>
+        <tr>
+            <td>John Doe</td>
+        </tr>
+        <tr>
+            <td>Jane Smith</td>
+        </tr>
+        <tr>
+            <td>Emily Johnson</td>
+        </tr>
+    </table>
+    
     <div class="inputArea" onchange="createWheel()">
-        <textarea rows="20" cols="30" >cat
+        <textarea rows="20" cols="30">cat
 dog
 cow
 duck
@@ -100,24 +156,24 @@ chicken</textarea>
     </div>
 
     <script>
-        function randomColor(){
+        function randomColor() {
             r = Math.floor(Math.random() * 255);
             g = Math.floor(Math.random() * 255);
             b = Math.floor(Math.random() * 255);
-            return {r,g,b}
+            return { r, g, b }
         }
-        function toRad(deg){
+        function toRad(deg) {
             return deg * (Math.PI / 180.0);
         }
-        function randomRange(min,max){
+        function randomRange(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
         function easeOutSine(x) {
             return Math.sin((x * Math.PI) / 2);
         }
         // get percent between 2 number
-        function getPercent(input,min,max){
-            return (((input - min) * 100) / (max - min))/100
+        function getPercent(input, min, max) {
+            return (((input - min) * 100) / (max - min)) / 100
         }
     </script>
 
@@ -127,33 +183,33 @@ chicken</textarea>
         const width = document.getElementById("canvas").width
         const height = document.getElementById("canvas").height
 
-        const centerX = width/2
-        const centerY = height/2
-        const radius = width/2
+        const centerX = width / 2
+        const centerY = height / 2
+        const radius = width / 2
 
         let items = document.getElementsByTagName("textarea")[0].value.split("\n");
 
         let currentDeg = 0
-        let step = 360/items.length
+        let step = 360 / items.length
         let colors = []
         let itemDegs = {}
 
-        for(let i = 0 ; i < items.length + 1;i++){
+        for (let i = 0; i < items.length + 1; i++) {
             colors.push(randomColor())
         }
 
-        function createWheel(){
+        function createWheel() {
             items = document.getElementsByTagName("textarea")[0].value.split("\n");
-            step = 360/items.length
+            step = 360 / items.length
             colors = []
-            for(let i = 0 ; i < items.length + 1;i++){
+            for (let i = 0; i < items.length + 1; i++) {
                 colors.push(randomColor())
             }
             draw()
         }
         draw()
 
-        function draw(){
+        function draw() {
             ctx.beginPath();
             ctx.arc(centerX, centerY, radius, toRad(0), toRad(360))
             ctx.fillStyle = `rgb(${33},${33},${33})`
@@ -161,14 +217,14 @@ chicken</textarea>
             ctx.fill()
 
             let startDeg = currentDeg;
-            for(let i = 0 ; i < items.length; i++, startDeg += step){
+            for (let i = 0; i < items.length; i++, startDeg += step) {
                 let endDeg = startDeg + step
 
                 color = colors[i]
                 let colorStyle = `rgb(${color.r},${color.g},${color.b})`
 
                 ctx.beginPath();
-                rad = toRad(360/step);
+                rad = toRad(360 / step);
                 ctx.arc(centerX, centerY, radius - 2, toRad(startDeg), toRad(endDeg))
                 let colorStyle2 = `rgb(${color.r - 30},${color.g - 30},${color.b - 30})`
                 ctx.fillStyle = colorStyle2
@@ -176,7 +232,7 @@ chicken</textarea>
                 ctx.fill()
 
                 ctx.beginPath();
-                rad = toRad(360/step);
+                rad = toRad(360 / step);
                 ctx.arc(centerX, centerY, radius - 30, toRad(startDeg), toRad(endDeg))
                 ctx.fillStyle = colorStyle
                 ctx.lineTo(centerX, centerY);
@@ -185,42 +241,42 @@ chicken</textarea>
                 // draw text
                 ctx.save();
                 ctx.translate(centerX, centerY);
-                ctx.rotate(toRad((startDeg + endDeg)/2));
+                ctx.rotate(toRad((startDeg + endDeg) / 2));
                 ctx.textAlign = "center";
-                if(color.r > 150 || color.g > 150 || color.b > 150){
+                if (color.r > 150 || color.g > 150 || color.b > 150) {
                     ctx.fillStyle = "#000";
                 }
-                else{
+                else {
                     ctx.fillStyle = "#fff";
                 }
                 ctx.font = 'bold 24px serif';
                 ctx.fillText(items[i], 130, 10);
                 ctx.restore();
 
-                itemDegs[items[i]] = 
-                    {
+                itemDegs[items[i]] =
+                {
                     "startDeg": startDeg,
-                    "endDeg" : endDeg
-                    }
-                
+                    "endDeg": endDeg
+                }
+
 
                 // check winner
-                if(startDeg%360 < 360 && startDeg%360 > 270  && endDeg % 360 > 0 && endDeg%360 < 90 ){
+                if (startDeg % 360 < 360 && startDeg % 360 > 270 && endDeg % 360 > 0 && endDeg % 360 < 90) {
                     document.getElementById("winner").innerHTML = items[i]
                 }
             }
         }
-        
+
 
         let speed = 0
-        let maxRotation = randomRange(360* 3, 360 * 6)
+        let maxRotation = randomRange(360 * 3, 360 * 6)
         let pause = false
-        function animate(){
-            if(pause){
+        function animate() {
+            if (pause) {
                 return
             }
-            speed = easeOutSine(getPercent(currentDeg ,maxRotation ,0)) * 20
-            if(speed < 0.01){
+            speed = easeOutSine(getPercent(currentDeg, maxRotation, 0)) * 20
+            if (speed < 0.01) {
                 speed = 0
                 pause = true
             }
@@ -228,27 +284,33 @@ chicken</textarea>
             draw()
             window.requestAnimationFrame(animate);
         }
-        
-        function spin(){
-            if(speed != 0){
-                return
+
+        function spin() {
+            if (speed != 0) {
+                return;
             }
 
             maxRotation = 0;
-            currentDeg = 0
-            createWheel()
+            currentDeg = 0;
+            createWheel();
             draw();
 
-            
-            maxRotation = (360 * 6) - itemDegs['cat'].endDeg + 10
-            itemDegs = {}
-            console.log("max",maxRotation)
+            // Tạo góc quay ngẫu nhiên
+            const minRotation = 360 *3; // Góc quay tối thiểu (1 vòng)
+            const maxRandomRotation = 360 * 10; // Góc quay tối đa (10 vòng)
+            maxRotation = Math.floor(Math.random() * (maxRandomRotation - minRotation + 1)) + minRotation;
+
+            itemDegs = {};
+            console.log("max", maxRotation);
             console.log(itemDegs);
-            pause = false
+
+            pause = false;
             window.requestAnimationFrame(animate);
         }
 
+
     </script>
+
 </body>
 
 </html>
